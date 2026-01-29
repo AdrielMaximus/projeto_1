@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Controle de Atendimentos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="theme-green">
+  <div class="container">
+
+    <h2>Novo Atendimento</h2>
+
+    <form method="post" action="/salvar">
+      <input name="atendente" placeholder="Atendente" required>
+      <input name="cliente" placeholder="Cliente" required>
+
+      <input name="loja" placeholder="Loja" required>
+      <input name="cnpj" placeholder="CNPJ" required>
+
+      <input name="mac_terminal" placeholder="MAC do terminal" required>
+      <input name="detalhe" placeholder="Detalhe do atendimento" required>
+
+      <select name="solicitacao" required>
+        <option value="">Solicitação</option>
+        <option>Paulo</option>
+        <option>Sany</option>
+        <option>Demanda de Atualização</option>
+      </select>
+
+      <select name="demanda" required>
+        <option value="">Demanda</option>
+        <option>Ativo</option>
+        <option>Passivo</option>
+      </select>
+
+      <button type="submit">Salvar atendimento</button>
+    </form>
+
+    <h2>Atendimentos de Hoje</h2>
+
+    <!-- TABELA (DESKTOP / TELAS GRANDES) -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Atendente</th>
+            <th>Cliente</th>
+            <th>Loja</th>
+            <th>CNPJ</th>
+            <th>Detalhe</th>
+            <th>Solicitação</th>
+            <th>Demanda</th>
+            <th>MAC</th>
+            <th>Hora</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for a in atendimentos %}
+          <tr>
+            <td>{{ a.atendente }}</td>
+            <td>{{ a.cliente }}</td>
+            <td>{{ a.loja }}</td>
+            <td>{{ a.cnpj }}</td>
+            <td>{{ a.detalhe }}</td>
+            <td>{{ a.solicitacao }}</td>
+            <td>{{ a.demanda }}</td>
+            <td>{{ a.mac_terminal }}</td>
+            <td>{{ a.criado_em[11:16] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CARDS (MOBILE) -->
+    <div class="cards">
+      {% for a in atendimentos %}
+      <div class="card">
+        <strong>{{ a.cliente }}</strong>
+        <span><b>Atendente:</b> {{ a.atendente }}</span>
+        <span><b>Loja:</b> {{ a.loja }}</span>
+        <span><b>CNPJ:</b> {{ a.cnpj }}</span>
+        <span><b>Detalhe:</b> {{ a.detalhe }}</span>
+        <span><b>Solicitação:</b> {{ a.solicitacao }}</span>
+        <span><b>Demanda:</b> {{ a.demanda }}</span>
+        <span><b>MAC:</b> {{ a.mac_terminal }}</span>
+        <span><b>Hora:</b> {{ a.criado_em[11:16] }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</body>
+</html>
